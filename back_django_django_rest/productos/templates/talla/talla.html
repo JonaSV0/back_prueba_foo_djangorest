@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %}
+  Tallas
+{% endblock %}
+{% block content %}
+  <div class="p-3">
+    <form action="{% url 'tallas-list' %}" method="post" class="w-50 d-flex align-items-end gap-2">
+        {% csrf_token %}
+      <div class="">
+        <label class="form-label" for="">Nombre</label>
+        {{ form.name }}
+        {% for error in form.name.errors %}
+          <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+      </div>
+      <div class="">
+        <button type="submit" class="btn btn-primary bt-sm">Agregar nuevo</button>
+      </div>
+    </form>
+  </div>
+  <div class="border-bottom mb-4"></div>
+
+  {% if tallas %}
+    <div class="d-flex w-full justify-content-center">
+      <table class="table table-striped">
+        <tr>
+          <th>#</th>
+          <th>Talla</th>
+          <th>Acciones</th>
+        </tr>
+        {% for talla in tallas %}
+          <tr>
+            <td>{{ talla.id }}</td>
+            <td>{{ talla.name }}</td>
+            <td>
+              <div class="d-flex gap-2 flex-row">
+                <a class="btn btn-success btn-sm" href="{% url "tallas-edit" id=talla.id %}">editar</a>
+                <form method="post" action="{% url 'tallas-delete' id=talla.id %}">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-danger btn-sm rounded">eliminar</button>
+                </form>
+              </div>
+            </td>
+          </tr>
+        {% endfor %}
+      </table>
+    </div>
+  {% else %}
+    <p class="alert alert-info">No hay tallas registrados!!</p>
+  {% endif %}
+{% endblock %}

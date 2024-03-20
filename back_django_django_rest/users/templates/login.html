@@ -1,0 +1,30 @@
+{%  extends "blank.html" %}
+{% block content %}
+    <div class="d-flex justify-content-center align-items-center min-w-100 min-h-100 vh-100">
+        <div class="w-20 h-20 p-5 rounded bg-light">
+           <form method="post" action="{% url 'login' %}">
+               {%  csrf_token %}
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Usuario</label>
+                <input
+                        type="text"
+                        class="form-control"
+                        id="exampleInputEmail1"
+                        aria-describedby="emailHelp"
+                        name="username"
+                        value={{ username }}>
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" name="password">
+              </div>
+              {% if error %}
+                <div class="alert alert-danger">
+                    {{ error }}
+                </div>
+              {% endif %}
+              <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+           </form>
+        </div>
+    </div>
+{%  endblock %}

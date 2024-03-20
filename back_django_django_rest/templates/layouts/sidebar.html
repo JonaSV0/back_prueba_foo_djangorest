@@ -1,0 +1,21 @@
+{% block sidebar %}
+  <div class="card">
+    <div class="card-header bg-dark text-light">Menú</div>
+    <ul class="list-group list-group-flush">
+      <a href="{% url 'dashboard' %}" class="list-group-item list-group-item-action">    <i class="bi bi-house"></i>
+        Dashboard</a>
+      <li class="list-group-item">
+        <!-- Botón para desplegar el submenú -->
+        <a class="dropdown-toggle list-group-item-action" type="button" data-bs-toggle="collapse" data-bs-target="#submenuProductos" aria-expanded="false" aria-controls="submenuProductos">Confuguración</a>
+        <!-- Submenú de Productos -->
+        <div class="collapse" id="submenuProductos">
+          <a href="{% url 'marcas-list' %}" class="list-group-item list-group-item-action">marcas</a>
+          <a href="{% url 'modelos-list' %}" class="list-group-item list-group-item-action">modelos</a>
+          <a href="{% url 'colores-list' %}" class="list-group-item list-group-item-action">colores</a>
+          <a href="{% url 'tallas-list' %}" class="list-group-item list-group-item-action">tallas</a>
+        </div>
+      </li>
+      <a href="{% url 'products-list' %}" class="list-group-item list-group-item-action">Productos</a>
+    </ul>
+  </div>
+{% endblock %}

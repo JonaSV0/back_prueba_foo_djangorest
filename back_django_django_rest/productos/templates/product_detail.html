@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}
+  {{ producto.name }}
+{% endblock %}
+{% block content %}
+  <div class="w-full d-flex justify-content-center">
+    <div class="d-flex">
+      <div class="flex-shrink-0">
+        <img src="/{{ producto.imagen_url }}" alt="{{ producto.name }}" style="max-width: 300px; max-height: 300px;" />
+      </div>
+      <div class="flex-grow-1 ms-3">
+        <h1>{{ producto.name }}</h1>
+        <p>precio: {{ producto.price }}</p>
+        <p>stock: {{ producto.stock }}</p>
+        <p>talla: {{ producto.id_talla.name }}</p>
+        <p>color: {{ producto.id_color.name }}</p>
+        <p>marca: {{ producto.id_marca.name }}</p>
+        <img src="/{{ producto.static_img }}" alt="{{ producto.name }}" />
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% block title %}
+  Editar Producto
+{% endblock %}
+{% block content %}
+  <div class="w-full d-flex justify-content-center">
+    <form action="{% url 'product-edit' id=product.id %}" method="post" class="w-50" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label class="form-label" for="id_name">Nueva imagen de producto</label>
+        {{ form.imagen }}
+        {% for error in form.image.errors %}
+          <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+        <img src="/{{ product.imagen_url }}" id="vista-previa" src="#" alt="Vista previa de la imagen" style="max-width: 200px; max-height: 200px;" class="img-thumbnail mt-2" />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="id_name">Nombre</label>
+        {{ form.name }}
+        {% for error in form.name.errors %}
+          <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+      </div>
+      {% comment %}
+      <div class="mb-3">
+        <label class="form-label" for="">Código</label>
+        {{ form.code }}
+        {% for error in form.code.errors %}
+          <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+      </div> {% endcomment %}
+
+      <div class="mb-3">
+        <label class="form-label" for="">Precio</label>
+        {{ form.price }}
+        {% for error in form.price.errors %}
+          <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="">Stock</label>
+        {{ form.stock }}
+        {% for error in form.stock.errors %}
+          <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="">Marca</label>
+        {{ form.id_marca }}
+        {% for error in form.id_marca.errors %}
+          <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="">Modelos</label>
+        {{ form.id_modelo }}
+        {% for error in form.id_modelo.errors %}
+          <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="">Color</label>
+        {{ form.id_color }}
+        <div class="text-danger">
+          {% for error in form.id_color.errors %}
+            {{ error }}
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="">Talla</label>
+        {{ form.id_talla }}
+        {% for error in form.id_talla.errors %}
+          <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+      </div>
+
+      <button type="submit" class="btn btn-primary rounded">Guardar</button>
+    </form>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      document.getElementById('id_imagen').onchange = function (event) {
+        let archivo = event.target.files[0]
+        let vistaPrevia = document.getElementById('vista-previa')
+        vistaPrevia.style.display = 'block'
+    
+        let lector = new FileReader()
+        lector.onload = function (event) {
+          vistaPrevia.src = event.target.result
+        }
+    
+        lector.readAsDataURL(archivo)
+      }
+    })
+  </script>
+{% endblock %}

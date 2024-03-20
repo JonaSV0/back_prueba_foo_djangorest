@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Principal
+{% endblock %}
+
+{% block content %}
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xl-6 col-md-12">
+        <div class="card">
+          <div class="card-content">
+            <div class="card-body cleartfix">
+              <div class="media align-items-stretch">
+                <div class="align-self-center">
+                  <h1 class="mr-2">S/. {{ total_ventas }}</h1>
+                </div>
+                <div class="media-body">
+                  <h4>Ventas</h4>
+                  <span>Ventas del día</span>
+                </div>
+                <div class="align-self-center">
+                  <i class="icon-heart danger font-large-2"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-6 col-md-12">
+        <div class="card">
+          <div class="card-content">
+            <div class="card-body cleartfix">
+              <div class="media align-items-stretch">
+                <div class="align-self-center">
+                  <h1 class="mr-2">{{ cantidad_productos }}</h1>
+                </div>
+                <div class="media-body">
+                  <h4>Productos</h4>
+                  <span>Productos vendidos del día</span>
+                </div>
+                <div class="align-self-center">
+                  <i class="icon-wallet success font-large-2"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="border-bottom my-4"></div>
+
+    <div class="row">
+      {% if top_productos %}
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title">Top 3 de productos vendidos</h4>
+            </div>
+            <div class="card-content">
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-hover mb-0 text-black">
+                    <thead>
+                      <tr>
+                        <th>Image</th>
+                        <th>Producto</th>
+                        <th>Cantidad Vendidos</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for producto, cantidad in top_productos %}
+                          <tr>
+                            <td>
+                              <img src="/{{ producto.imagen_url }}" alt="{{ producto.name }}" class="img-thumbnail" style="width: 150px; height: 150px;" />
+                            </td>
+                            <td>
+                              <div class="d-flex flex-column">
+                                <p class="alert alert-success">{{producto.id_marca.name|default:'Sin marca'}}</p>
+                                <p>Nombre: {{producto.name}}</p>
+                                <p>Precio: S/. {{producto.price}}</p>
+                                <p> stock: {{producto.stock}}</p>
+                              </div>
+                              <a class="btn btn-primary btn-sm" href="{% url 'product-detail' id=producto.id %}">ver</a>
+                            </td>
+                            <td>{{ cantidad }}</td>
+                          </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% else %}
+        <div class="col-12">
+          <div class="alert alert-warning" role="alert">No se han realizado ventas el día de hoy.</div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

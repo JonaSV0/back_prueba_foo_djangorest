@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}
+  Edicion de Marca
+{% endblock %}
+{% block content %}
+  <div class="p-3 d-flex justify-content-center">
+    <form action="{% url 'marcas-edit' id=form.instance.id %}" method="post">
+        {% csrf_token %}
+      <div class="mb-3">
+        <label class="form-label" for="">Nombre</label>
+        {{ form.name }}
+        {% for error in form.name.errors %}
+          <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+      </div>
+      <button type="submit" class="btn btn-primary bt-sm">Guardar</button>
+    </form>
+  </div>
+{% endblock %}

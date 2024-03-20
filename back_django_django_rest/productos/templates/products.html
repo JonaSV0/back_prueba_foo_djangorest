@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block title %}
+  Productos
+{% endblock %}
+{% block content %}
+  <style>
+    .table img {
+      max-width: 100px; /* Establecer un ancho máximo para la imagen */
+      height: auto; /* Ajustar la altura automáticamente para mantener la relación de aspecto */
+    }
+    
+    .table th,
+    .table td {
+      vertical-align: middle; /* Alinear el contenido verticalmente en las celdas */
+    }
+  </style>
+
+  <div class="p-3">
+    <a class="btn btn-primary shadow-sm rounded" href="{% url 'product' %}">Agregar</a>
+  </div>
+  {% if productos %}
+    <table class="table table-striped">
+      <tr>
+        <th>#</th>
+        <th>imagen</th>
+        <th>Nombre</th>
+        <th>Codigo</th>
+        <th>Marca</th>
+        <th>Modelo</th>
+        <th>Color</th>
+        <th>Talla</th>
+        <th>Acciones</th>
+      </tr>
+      {% for producto in productos %}
+        <tr>
+          <td>{{ producto.id }}</td>
+          <td>
+            <img src="/{{ producto.imagen_url }}" alt="{{ producto.name }}" class="img-thumbnail" style="width: 80px; height: 80px;" />
+          </td>
+          <td>{{ producto.name }}</td>
+          <td>{{ producto.code }}</td>
+          <td>{{ producto.id_marca.name|default:'Sin marca'}}</td>
+          <td>{{ producto.id_modelo.name|default:'Sin modelo' }}</td>
+          <td>{{ producto.id_color.name|default:'Sin color' }}</td>
+          <td>{{ producto.id_talla.name|default:'Sin talla' }}</td>
+          <td>
+            <div class="d-flex gap-2 flex-row">
+              <a class="btn btn-primary btn-sm" href="{% url 'product-detail' id=producto.id %}">ver</a>
+              <a class="btn btn-success btn-sm" href="{% url 'product-edit' id=producto.id %}">editar</a>
+              <form action="{% url 'product-delete' id=producto.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger btn-sm rounded">eliminar</button>
+              </form>
+            </div>
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+    <p class="alert alert-info">No hay productos registrados!!</p>
+  {% endif %}
+{% endblock %}

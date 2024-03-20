@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'bootstrap-5.0.2/css/bootstrap.min.css' %}" />
+    {% comment %} <script src="{% static 'bootstrap-5.0.2/js/bootstrap.bundle.min.js' %}"></script> {% endcomment %}
+  </head>
+  <body style="background: #ecf0f3;">
+    <div id="content">
+      {% include './layouts/nav.html' %}
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3">
+            {% include './layouts/sidebar.html' %}
+          </div>
+          <div class="col-md-9">
+            <div class="card">
+              <div class="card-header bg-dark text-light">
+                {% block title %}
+
+                {% endblock %}
+              </div>
+              <div class="card-body">
+                {% block content %}
+
+                {% endblock %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="{% static 'bootstrap-5.0.2/js/bootstrap.bundle.min.js' %}"></script>
+</html>
